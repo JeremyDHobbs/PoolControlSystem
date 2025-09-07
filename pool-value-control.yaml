@@ -1,0 +1,286 @@
+esphome:
+  #platform: ESP8266
+  #board: 
+  name: pool-value-controls
+  friendly_name: Pool Value Controls
+
+esp8266:
+  board: nodemcuv2
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  port: 6052
+  encryption:
+    key: "secret"
+
+ota:
+  - platform: esphome
+    password: "secret"
+
+wifi:
+  ssid: "WIFINAME"
+  password: "WIFIPASS"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Backup-Pool-Controls"
+    password: "secret"
+  manual_ip:
+    static_ip: 192.168.1.1
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+i2c:
+  sda: GPIO4
+  scl: GPIO5
+  scan: True
+
+# Define the MCP23017 I/O expander hub
+pcf8574:
+  - id: 'pcf8575_hub'
+    address: 0x27
+    pcf8575: true
+# Define the 16 relay switches using the gpio platform
+
+switch:
+  - platform: gpio
+    id: relay_1
+    name: "Relay 1"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 0
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_2
+    name: "Relay 2"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 1
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_3
+    name: "Relay 3"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 2
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_4
+    name: "Relay 4"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 3
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_5
+    name: "Relay 5"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 4
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_6
+    name: "Relay 6"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 5
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_7
+    name: "Relay 7"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 6
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_8
+    name: "Relay 8"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 7
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_9
+    name: "Relay 9"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 8
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_10
+    name: "Relay 10"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 9
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_11
+    name: "Relay 11"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 10
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_12
+    name: "Relay 12"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 11
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_13
+    name: "Relay 13"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 12
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_14
+    name: "Relay 14"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 13
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_15
+    name: "Relay 15"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 14
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: relay_16
+    name: "Relay 16"
+    pin:
+      pcf8574: pcf8575_hub
+      number: 15
+      mode:
+        output: true
+      inverted: true
+
+  # Template switch to turn all relays ON
+  - platform: template
+    name: "All Relays ON"
+    turn_on_action:
+      then:
+        - switch.turn_on:
+            id: relay_1
+        - switch.turn_on:
+            id: relay_2
+        - switch.turn_on:
+            id: relay_3
+        - switch.turn_on:
+            id: relay_4
+        - switch.turn_on:
+            id: relay_5
+        - switch.turn_on:
+            id: relay_6
+        - switch.turn_on:
+            id: relay_7
+        - switch.turn_on:
+            id: relay_8
+        - switch.turn_on:
+            id: relay_9
+        - switch.turn_on:
+            id: relay_10
+        - switch.turn_on:
+            id: relay_11
+        - switch.turn_on:
+            id: relay_12
+        - switch.turn_on:
+            id: relay_13
+        - switch.turn_on:
+            id: relay_14
+        - switch.turn_on:
+            id: relay_15
+        - switch.turn_on:
+            id: relay_16
+
+  # Template switch to turn all relays OFF
+  - platform: template
+    name: "All Relays OFF"
+    turn_on_action:
+      then:
+        - switch.turn_off:
+            id: relay_1
+        - switch.turn_off:
+            id: relay_2
+        - switch.turn_off:
+            id: relay_3
+        - switch.turn_off:
+            id: relay_4
+        - switch.turn_off:
+            id: relay_5
+        - switch.turn_off:
+            id: relay_6
+        - switch.turn_off:
+            id: relay_7
+        - switch.turn_off:
+            id: relay_8
+        - switch.turn_off:
+            id: relay_9
+        - switch.turn_off:
+            id: relay_10
+        - switch.turn_off:
+            id: relay_11
+        - switch.turn_off:
+            id: relay_12
+        - switch.turn_off:
+            id: relay_13
+        - switch.turn_off:
+            id: relay_14
+        - switch.turn_off:
+            id: relay_15
+        - switch.turn_off:
+            id: relay_16
+
+  # Add a restart button for convenience
+  - platform: restart
+    name: "Restart Relays"
